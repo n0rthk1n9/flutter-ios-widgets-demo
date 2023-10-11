@@ -13,8 +13,8 @@ class UpdateGreetingWidget extends StatefulWidget {
 }
 
 void updateGreeting(Greeting newGreeting) {
-  HomeWidget.saveWidgetData<String>('greeting', newGreeting.name);
-  HomeWidget.saveWidgetData<String>('headline_description', newGreeting.greeting);
+  HomeWidget.saveWidgetData<String>('greeting_name', newGreeting.name);
+  HomeWidget.saveWidgetData<String>('greeting_greeting', newGreeting.greeting);
 
   HomeWidget.updateWidget(
     iOSName: iOSWidgetName,

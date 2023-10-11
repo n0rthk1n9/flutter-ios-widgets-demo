@@ -5,50 +5,48 @@
 //  Created by Jan Armbrust on 11.10.23.
 //
 
-import WidgetKit
 import SwiftUI
+import WidgetKit
 
 struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), emoji: "😀")
+    func placeholder(in context: Context) -> GreetingEntry {
+        GreetingEntry(date: Date(), name: "Placeholder Name", greeting: "Placeholder Greeting")
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), emoji: "😀")
+    func getSnapshot(in context: Context, completion: @escaping (GreetingEntry) -> ()) {
+        let entry: GreetingEntry
+        if context.isPreview {
+            entry = placeholder(in: context)
+        } else {
+            let userDefaults = UserDefaults(suiteName: "group.flutterioswidgetsdemoflutterhamburgmeetup")
+            let name = userDefaults?.string(forKey: "greeting_name") ?? "No Name Set"
+            let greeting = userDefaults?.string(forKey: "greeting_greeting") ?? "No Greeting Set"
+            entry = GreetingEntry(date: Date(), name: name, greeting: greeting)
+        }
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, emoji: "😀")
-            entries.append(entry)
+        getSnapshot(in: context) { entry in
+            let timeline = Timeline(entries: [entry], policy: .atEnd)
+            completion(timeline)
         }
-
-        let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
     }
 }
 
-struct SimpleEntry: TimelineEntry {
+struct GreetingEntry: TimelineEntry {
     let date: Date
-    let emoji: String
+    let name: String
+    let greeting: String
 }
 
-struct GreetingWidgetEntryView : View {
+struct GreetingWidgetEntryView: View {
     var entry: Provider.Entry
 
     var body: some View {
         VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
-
-            Text("Emoji:")
-            Text(entry.emoji)
+            Text(entry.greeting)
+            Text(entry.name)
         }
     }
 }
@@ -75,6 +73,6 @@ struct GreetingWidget: Widget {
 #Preview(as: .systemSmall) {
     GreetingWidget()
 } timeline: {
-    SimpleEntry(date: .now, emoji: "😀")
-    SimpleEntry(date: .now, emoji: "🤩")
+    GreetingEntry(date: .now, name: "Flutter Hamburg ⚓️", greeting: "Moin")
+    GreetingEntry(date: .now, name: "Jan", greeting: "Hallo")
 }
