@@ -229,3 +229,8 @@ iOSInjectionProject/
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,swift,flutter,dart,visualstudiocode
+
+# custom
+
+# fvm
+.fvm/flutter_sdk
