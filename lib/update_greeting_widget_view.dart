@@ -1,15 +1,15 @@
 import 'package:flutter_ios_widgets_demo/greeting_data.dart';
+import 'package:flutter_ios_widgets_demo/styles.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 const String appGroupId = 'group.flutterioswidgetsdemoflutterhamburgmeetup';
 const String iOSWidgetName = 'GreetingWidget';
 
-class UpdateGreetingWidget extends StatefulWidget {
-  const UpdateGreetingWidget({super.key});
+class UpdateGreetingWidgetTab extends StatefulWidget {
+  const UpdateGreetingWidgetTab({super.key});
   @override
-  State<UpdateGreetingWidget> createState() => _UpdateGreetingWidgetState();
+  State<UpdateGreetingWidgetTab> createState() => _UpdateGreetingWidgetTabState();
 }
 
 void updateGreeting(Greeting newGreeting) {
@@ -21,7 +21,7 @@ void updateGreeting(Greeting newGreeting) {
   );
 }
 
-class _UpdateGreetingWidgetState extends State<UpdateGreetingWidget> {
+class _UpdateGreetingWidgetTabState extends State<UpdateGreetingWidgetTab> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController greetingController = TextEditingController();
 
@@ -44,37 +44,43 @@ class _UpdateGreetingWidgetState extends State<UpdateGreetingWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Update Greeting'),
-        centerTitle: false,
-        titleTextStyle: const TextStyle(
-          fontSize: 30,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
+    return CupertinoPageScaffold(
+      navigationBar: const CupertinoNavigationBar(
+        middle: Text('Update Greeting Widget'),
       ),
-      body: Column(
-        children: [
-          CupertinoTextField(
-            controller: nameController,
-            placeholder: 'Name',
-          ),
-          CupertinoTextField(
-            controller: greetingController,
-            placeholder: 'Greeting',
-          ),
-          CupertinoButton(
-            onPressed: () {
-              final newGreeting = Greeting(
-                name: nameController.text,
-                greeting: greetingController.text,
-              );
-              updateGreeting(newGreeting);
-            },
-            child: const Text("Update Greeting"),
-          ),
-        ],
+      child: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: CupertinoTextField(
+                controller: nameController,
+                placeholder: 'Name',
+                style: Styles.searchText,
+                cursorColor: Styles.searchCursorColor,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+              child: CupertinoTextField(
+                controller: greetingController,
+                placeholder: 'Greeting',
+                style: Styles.searchText,
+                cursorColor: Styles.searchCursorColor,
+              ),
+            ),
+            CupertinoButton(
+              onPressed: () {
+                final newGreeting = Greeting(
+                  name: nameController.text,
+                  greeting: greetingController.text,
+                );
+                updateGreeting(newGreeting);
+              },
+              child: const Text("Update Greeting"),
+            ),
+          ],
+        ),
       ),
     );
   }
