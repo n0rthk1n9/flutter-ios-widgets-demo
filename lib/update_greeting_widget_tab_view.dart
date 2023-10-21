@@ -56,8 +56,8 @@ class _UpdateGreetingWidgetTabState extends State<UpdateGreetingWidgetTab> {
               child: CupertinoTextField(
                 controller: nameController,
                 placeholder: 'Name',
-                style: Styles.searchText,
-                cursorColor: Styles.searchCursorColor,
+                style: Styles.inputText,
+                cursorColor: Styles.inputCursorColor,
               ),
             ),
             Padding(
@@ -65,19 +65,25 @@ class _UpdateGreetingWidgetTabState extends State<UpdateGreetingWidgetTab> {
               child: CupertinoTextField(
                 controller: greetingController,
                 placeholder: 'Greeting',
-                style: Styles.searchText,
-                cursorColor: Styles.searchCursorColor,
+                style: Styles.inputText,
+                cursorColor: Styles.inputCursorColor,
               ),
             ),
             CupertinoButton(
               onPressed: () {
+                FocusScopeNode currentFocus = FocusScope.of(context);
+
+                if (!currentFocus.hasPrimaryFocus) {
+                  currentFocus.unfocus();
+                }
+
                 final newGreeting = Greeting(
                   name: nameController.text,
                   greeting: greetingController.text,
                 );
                 updateGreeting(newGreeting);
               },
-              child: const Text("Update Greeting"),
+              child: const Text('Update Greeting'),
             ),
           ],
         ),
