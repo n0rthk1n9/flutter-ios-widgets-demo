@@ -65,8 +65,8 @@ struct GreetingWidget: Widget {
                     .background()
             }
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
+        .configurationDisplayName("Greeting Widget")
+        .description("This is an example greeting widget.")
     }
 }
 
