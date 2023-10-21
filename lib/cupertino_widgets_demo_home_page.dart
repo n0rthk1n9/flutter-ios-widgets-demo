@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_ios_widgets_demo/update_greeting_widget_view.dart';
+import 'package:flutter_ios_widgets_demo/update_greeting_widget_tab_view.dart';
+import 'package:flutter_ios_widgets_demo/update_weather_widget_tab_view.dart';
 
 class CupertinoWidgetsDemoHomePage extends StatelessWidget {
   const CupertinoWidgetsDemoHomePage({super.key});
@@ -30,7 +31,7 @@ class CupertinoWidgetsDemoHomePage extends StatelessWidget {
           case 1:
             return CupertinoTabView(builder: (context) {
               return const CupertinoPageScaffold(
-                child: UpdateGreetingWidgetTab(),
+                child: UpdateWeatherWidgetTab(),
               );
             });
           default:
