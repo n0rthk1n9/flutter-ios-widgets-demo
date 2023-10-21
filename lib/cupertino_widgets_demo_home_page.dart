@@ -1,15 +1,46 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_ios_widgets_demo/update_greeting_widget_view.dart';
 
 class CupertinoWidgetsDemoHomePage extends StatelessWidget {
   const CupertinoWidgetsDemoHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
-        middle: Text('Widgets Demo'),
+    return CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.person),
+            label: 'Greeting',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.sun_max_fill),
+            label: 'Weather',
+          ),
+        ],
       ),
-      child: Container(),
+      tabBuilder: (context, index) {
+        switch (index) {
+          case 0:
+            return CupertinoTabView(builder: (context) {
+              return const CupertinoPageScaffold(
+                child: UpdateGreetingWidgetTab(),
+              );
+            });
+          case 1:
+            return CupertinoTabView(builder: (context) {
+              return const CupertinoPageScaffold(
+                child: UpdateGreetingWidgetTab(),
+              );
+            });
+          default:
+            return CupertinoTabView(builder: (context) {
+              return const CupertinoPageScaffold(
+                child: UpdateGreetingWidgetTab(),
+              );
+            });
+        }
+      },
     );
   }
 }
