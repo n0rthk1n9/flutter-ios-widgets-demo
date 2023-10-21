@@ -56,6 +56,7 @@ class _UpdateWeatherWidgetTabState extends State<UpdateWeatherWidgetTab> {
       child: SafeArea(
         child: Column(
           children: [
+            const Spacer(),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: CupertinoTextField(
@@ -103,6 +104,7 @@ class _UpdateWeatherWidgetTabState extends State<UpdateWeatherWidgetTab> {
               },
               child: const Text('Update Weather'),
             ),
+            const Spacer(),
           ],
         ),
       ),

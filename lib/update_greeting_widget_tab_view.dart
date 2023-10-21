@@ -51,6 +51,7 @@ class _UpdateGreetingWidgetTabState extends State<UpdateGreetingWidgetTab> {
       child: SafeArea(
         child: Column(
           children: [
+            const Spacer(),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: CupertinoTextField(
@@ -85,6 +86,7 @@ class _UpdateGreetingWidgetTabState extends State<UpdateGreetingWidgetTab> {
               },
               child: const Text('Update Greeting'),
             ),
+            const Spacer(),
           ],
         ),
       ),
